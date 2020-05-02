@@ -33,14 +33,15 @@ def astar_search(atlas):
 
     mazeStats = SearchStats(start_node, end_node)
 
-    while not mazeStats.isclosed() and index(mazeStats.getCurr(), atlas) is not index(end_node,
-                                                                                      atlas):  # atlas[node.x][node.y] \\\\ index(mazeStats.getCurr(), atlas) != 3
+    while not mazeStats.isclosed() and index(mazeStats.getCurr(),
+                                             atlas) != 3:  # atlas[node.x][node.y] \\\\ index(mazeStats.getCurr(), atlas) != 3
         mazeStats.deepen()
         for child in expand(mazeStats.getCurr(), atlas):
-            frontier.append((mazeStats.fn(child, mazeStats.getCurr() , parent), child))  # place child in frontier
+            frontier.append((mazeStats.fn(child, mazeStats.getCurr(), parent), child))  # place child in frontier
 
             parent[child.x][child.y] = [mazeStats.getCurr().x, mazeStats.getCurr().y,
-                                        nodeDepth(child, mazeStats.getCurr(), parent)]  # adds back trace to parent array
+                                        nodeDepth(child, mazeStats.getCurr(),
+                                                  parent)]  # adds back trace to parent array
         # frontier.sort()  # sort according to f(n)
         if frontier.__len__() == 0:
             break
@@ -54,7 +55,7 @@ def astar_search(atlas):
 
     # performs back trace if possible
     if index(mazeStats.getCurr(), atlas) == 3:
-        print("yay")
+
         # while len(frontier) != 0:
         #    drain = frontier.pop()[1]
         #    atlas[drain.x][drain.y] = 4
@@ -121,7 +122,6 @@ def find_start(atlas, parent):  # finds start node, adds to frontier, marks with
                 result = Node(rdx, cdx)
 
                 atlas[result.x][result.y] = 5
-
 
                 parent[rdx][cdx] = [None, None, 0]
                 return result
