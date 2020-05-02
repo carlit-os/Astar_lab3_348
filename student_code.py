@@ -44,13 +44,14 @@ def astar_search(atlas):
                                         nodeDepth(child, mazeStats.getCurr(),
                                                   parent)]  # adds back trace to parent array
         # frontier.sort()  # sort according to f(n)
-        if frontier.__len__() == 0:
+        atlas[mazeStats.getCurr().x][mazeStats.getCurr().y] = 4  # mark with 4, consider combining
+        if frontier.__len__() == 0: #catches unreachable goals
             break
 
         frontier.sort(key=lambda tup: (tup[0], tup[1].y, tup[1].x))
 
         mazeStats.close(mazeStats.getCurr())  # add curr node to close
-        atlas[mazeStats.getCurr().x][mazeStats.getCurr().y] = 4  # mark with 4, consider combining
+
         frontier.sort(key=lambda tup: (tup[0], tup[1].y, tup[1].x))
         mazeStats.setCurr(frontier.pop(0)[1])  # set curr node to next kid
 
@@ -63,6 +64,7 @@ def astar_search(atlas):
 
         atlas[mazeStats.getCurr().x][mazeStats.getCurr().y] = 5
         trace(mazeStats.getCurr(), parent, atlas)
+
         return True  # consider editing the value of found here
 
     return found
