@@ -34,7 +34,8 @@ def astar_search(atlas):
     mazeStats = SearchStats(start_node, end_node)
 
     while not mazeStats.isclosed() and index(mazeStats.getCurr(),
-                                             atlas) != 3:  # atlas[node.x][node.y] \\\\ index(mazeStats.getCurr(), atlas) != 3
+                                             atlas) != 3:  # atlas[node.x][node.y] \\\\ index(mazeStats.getCurr(),
+        # atlas) != 3
         mazeStats.deepen()
         for child in expand(mazeStats.getCurr(), atlas):
             frontier.append((mazeStats.fn(child, mazeStats.getCurr(), parent), child))  # place child in frontier
